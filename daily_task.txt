@@ -1,0 +1,6 @@
+Settled the template and set them into their respective folders
+two folders created 
+1->user
+2->common
+
+pending URLs , base file setup , modals

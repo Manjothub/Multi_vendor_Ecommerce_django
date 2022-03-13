@@ -4,3 +4,14 @@ two folders created
 2->common
 
 pending URLs , base file setup , modals
+
+date-march 13
+URLs done 
+Base file setup done 
+index file created sucessfully
+
+pending modals , HTML Pages
+
+done implementing models 
+
+pending product detail page

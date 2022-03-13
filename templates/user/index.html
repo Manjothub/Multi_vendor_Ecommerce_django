@@ -507,16 +507,17 @@
             </div>
         </div>
         <div class="row">
+            {% for p in products %}
             <div class="col-xl-6 col-lg-12">
                 <div class="single-features-item single-features-item-d single-features-item-d-2 b-radius-2 mb-20">
                     <div class="row  g-0 align-items-center">
                         <div class="col-lg-6">
                             <div class="features-thum">
                                 <div class="features-product-image w-img">
-                                    <a href="product-details.html"><img src="{% static 'img/features-product/fpb-1.jpg' %}" alt=""></a>
+                                    <a href="{{p.get_absolute_url}}"><img src="{{p.feature_img}}" alt="" height="350px"></a>
                                 </div>
                                 <div class="product__offer">
-                                    <span class="discount">-15%</span>
+                                    <span class="discount">-{{p.discount}}%</span>
                                 </div>
                                 <div class="product-action product-action-2">
                                     <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId">
@@ -532,7 +533,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="product__content product__content-d product__content-d-2">
-                                <h6><a href="product-details.html">APPO R11s 64GB Dual 20MP Cameras</a></h6>
+                                <h6><a href="product-details.html">{{p.product_name|truncatewords:10}}</a></h6>
                                 <div class="rating mb-5">
                                     <ul class="rating-d">
                                         <li><a href="#"><i class="fal fa-star"></i></a></li>
@@ -544,7 +545,7 @@
                                     <span>(01 review)</span>
                                 </div>
                                 <div class="price mb-10">
-                                    <span>$307.00 <del>$110</del></span>
+                                    <span>{{p.price}}</span>
                                 </div>
                                 <div class="features-des mb-20">
                                     <ul>
@@ -568,64 +569,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-12">
-                <div class="single-features-item single-features-item-d single-features-item-d-2 b-radius-2 mb-20">
-                    <div class="row  g-0 align-items-center">
-                        <div class="col-lg-6">
-                            <div class="features-thum">
-                                <div class="features-product-image w-img">
-                                    <a href="product-details.html"><img src="{% static 'img/features-product/fpb-2.jpg' %}" alt=""></a>
-                                </div>
-                                <div class="product-action product-action-2">
-                                    <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId">
-                                        <i class="fal fa-eye"></i>
-                                        <i class="fal fa-eye"></i>
-                                    </a>
-                                    <a href="#" class="icon-box icon-box-1">
-                                        <i class="fal fa-layer-group"></i>
-                                        <i class="fal fa-layer-group"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="product__content product__content-d product__content-d-2">
-                                <h6><a href="product-details.html">Redmi Note 10 128GB International Model</a></h6>
-                                <div class="rating mb-5">
-                                    <ul class="rating-d">
-                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
-                                    </ul>
-                                    <span>(01 review)</span>
-                                </div>
-                                <div class="price mb-10">
-                                    <span>$280.00 <del>$314</del></span>
-                                </div>
-                                <div class="features-des mb-20">
-                                    <ul>
-                                        <li><a href="product-details.html"><i class="fas fa-circle"></i> Bass and Stereo Sound.</a></li>
-                                        <li><a href="product-details.html"><i class="fas fa-circle"></i> Display with 3088 x 1440 pixels resolution.</a></li>
-                                        <li><a href="product-details.html"><i class="fas fa-circle"></i> Memory, Storage &amp; SIM: 12GB RAM, 256GB.</a></li>
-                                        <li><a href="product-details.html"><i class="fas fa-circle"></i> Androi v10.0 Operating system.</a></li>
-                                    </ul>
-                                </div>
-                                <div class="progress mb-5">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <div class="progress-rate mb-15">
-                                    <span>Sold:1000/1200</span>
-                                </div>
-                                <div class="cart-option">
-                                    <a href="cart.html" class="cart-btn-4 w-100">Add to Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -638,7 +582,7 @@
             <div class="col-xl-4 col-lg-4 col-md-12">
                 <div class="banner__item p-relative w-img mb-30">
                     <div class="banner__img b-radius-2">
-                        <a href="product-details.html"><img src="{% static 'img/banner/banner-14.jpg' %}" alt=""></a>
+                        <a href="#"><img src="{% static 'img/banner/banner-14.jpg' %}" alt=""></a>
                     </div>
                     <div class="banner__content banner__content-2">
                         <h6><a href="product-details.html">Microsoft <br> Surface Laptop 14”</a></h6>

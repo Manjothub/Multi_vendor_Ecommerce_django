@@ -11,8 +11,8 @@ def INDEX(request):
     return render(request,'user/index.html',context)
 
 def PRDUCTDETAIL(request,slug):
-    product = Product.objects.get(slug = slug)
+    products = Product.objects.filter(slug = slug)
     context ={
-        'product':product
+        'products':products
     }
     return render(request,'user/product_detail.html',context)

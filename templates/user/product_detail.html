@@ -23,32 +23,49 @@
             <div class="col-xl-6">
                 <div class="product__details-nav d-sm-flex align-items-start">
                     <ul class="nav nav-tabs flex-sm-column justify-content-between" id="productThumbTab" role="tablist">
-                        {% for i in product.product_image_set.all %}
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link active" id="thumb{{i.id}}" data-bs-toggle="tab" data-bs-target="#thumb{{i.id}}" type="button" role="tab" aria-controls="thumb{{i.id}}" aria-selected="true">
-                              <img src="{{i.image_url}}" alt="">
+                          <button class="nav-link active" id="thumbOne-tab" data-bs-toggle="tab" data-bs-target="#thumbOne" type="button" role="tab" aria-controls="thumbOne" aria-selected="true">
+                              <img src="{% static 'img/product/nav/product-nav-1.jpg' %}" alt="">
                           </button>
                         </li>
-                        {% endfor %}
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="thumbTwo-tab" data-bs-toggle="tab" data-bs-target="#thumbTwo" type="button" role="tab" aria-controls="thumbTwo" aria-selected="false">
+                            <img src="{% static 'img/product/nav/product-nav-2.jpg' %}" alt="">
+                          </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="thumbThree-tab" data-bs-toggle="tab" data-bs-target="#thumbThree" type="button" role="tab" aria-controls="thumbThree" aria-selected="false">
+                            <img src="{% static 'img/product/nav/product-nav-3.jpg' %}" alt="">
+                          </button>
+                        </li>
                     </ul>
                     <div class="product__details-thumb">
                         <div class="tab-content" id="productThumbContent">
-                            {% for p in product.product_image_set.all %}
                             <div class="tab-pane fade show active" id="thumbOne" role="tabpanel" aria-labelledby="thumbOne-tab">
                                 <div class="product__details-nav-thumb w-img">
-                                    <img src="{{i.image_url}}" alt="">
+                                    <img src="assets/img/product/nav/product-nav-big-1.jpg" alt="">
                                 </div>
                             </div>
-                            {% endfor %}
+                            <div class="tab-pane fade" id="thumbTwo" role="tabpanel" aria-labelledby="thumbTwo-tab">
+                                <div class="product__details-nav-thumb w-img">
+                                    <img src="assets/img/product/nav/product-nav-big-3.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="thumbThree" role="tabpanel" aria-labelledby="thumbThree-tab">
+                                <div class="product__details-nav-thumb w-img">
+                                    <img src="assets/img/product/nav/product-nav-big-2.jpg" alt="">
+                                </div>
                             </div>
                           </div>
                     </div>
                 </div>
+                </div>
             </div>
             <div class="col-xl-6">
+            {% for p in products %}
                 <div class="product__details-content">
-                    <h6>Samsung Galaxy A12, 32GB, Black – (Locked)</h6>
-                    <div class="pd-rating mb-10">
+                    <h6>{{p.product_name}}</h6>
+                    <!-- <div class="pd-rating mb-10">
                         <ul class="rating">
                             <li><a href="#"><i class="fal fa-star"></i></a></li>
                             <li><a href="#"><i class="fal fa-star"></i></a></li>
@@ -58,26 +75,26 @@
                         </ul>
                         <span>(01 review)</span>
                         <span><a href="#">Add your review</a></span>
-                    </div>
+                    </div> -->
                     <div class="price mb-10">
-                        <span>$216.00</span>
+                        <span>Rs {{p.price}}</span>
                     </div>
                     <div class="features-des mb-20 mt-10">
                         <ul>
-                            <li><a href="product-details.html"><i class="fas fa-circle"></i> Bass and Stereo Sound.</a></li>
-                            <li><a href="product-details.html"><i class="fas fa-circle"></i> Display with 3088 x 1440 pixels resolution.</a></li>
-                            <li><a href="product-details.html"><i class="fas fa-circle"></i> Memory, Storage &amp; SIM: 12GB RAM, 256GB.</a></li>
-                            <li><a href="product-details.html"><i class="fas fa-circle"></i> Androi v10.0 Operating system.</a></li>
+                            <li><a href="#"><i class="fas fa-circle"></i> Bass and Stereo Sound.</a></li>
+                            <li><a href="#"><i class="fas fa-circle"></i> Display with 3088 x 1440 pixels resolution.</a></li>
+                            <li><a href="#"><i class="fas fa-circle"></i> Memory, Storage &amp; SIM: 12GB RAM, 256GB.</a></li>
+                            <li><a href="#"><i class="fas fa-circle"></i> Androi v10.0 Operating system.</a></li>
                         </ul>
                     </div>
                     <div class="product-stock mb-20">
-                        <h5>Availability: <span> 940 in stock</span></h5>
+                        <h5>Availability: <span> {{p.availability}} in stock</span></h5>
                     </div>
                     <div class="cart-option mb-15">
                         <div class="product-quantity mr-20">
                             <div class="cart-plus-minus p-relative"><input type="text" value="1"><div class="dec qtybutton">-</div><div class="inc qtybutton">+</div></div>
                         </div>
-                        <a href="cart.html" class="cart-btn">Add to Cart</a>
+                        <a href="#" class="cart-btn">Add to Cart</a>
                     </div>
                     <div class="details-meta">
                         <div class="d-meta-left">
@@ -113,6 +130,7 @@
                         </div>
                     </div>
                 </div>
+            {% endfor %}
             </div>
         </div>
     </div>
@@ -190,9 +208,10 @@
                     <p class="des-text mb-25">Sound of Marshall, unplugs the chords, and takes the show on the road. Weighing in under 7 pounds, the Kilburn is a lightweight piece of vintage styled engineering. Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well-balanced audio which boasts a clear midrange and extended highs for a sound that is both articulate and pronounced. The analogue knobs allow you to fine tune the controls to your personal preferences while the guitar-influenced leather strap enables easy and stylish travel.</p>
                 </div>
             </div>
+            {% for product in products %}
             <div class="tab-pane fade" id="aditional" role="tabpanel" aria-labelledby="aditional-tab">
                 <div class="product__desc-info">
-                    <ul>
+                    <!-- <ul>
                        <li>
                           <h6>Weight</h6>
                           <span>2 lbs</span>
@@ -229,9 +248,11 @@
                           <h6>Brand</h6>
                           <span>Kazen</span>
                        </li>
-                    </ul>
+                    </ul> -->
+                    {{product.Description| safe}}
                  </div>
             </div>
+            {% endfor %}
             <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                 <div class="product__details-review">
                     <div class="row">

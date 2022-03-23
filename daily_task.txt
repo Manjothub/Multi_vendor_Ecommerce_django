@@ -15,3 +15,10 @@ pending modals , HTML Pages
 done implementing models 
 
 pending product detail page
+
+Date :23/03/2022
+implemented the error404 page 
+setting of the product detail page
+
+pending -> add more product to product table
+set the product section in the main homepage

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from . models import *
 
 def INDEX(request):
@@ -12,7 +12,14 @@ def INDEX(request):
 
 def PRDUCTDETAIL(request,slug):
     products = Product.objects.filter(slug = slug)
+    if products.exists():
+        products = Product.objects.filter(slug = slug)
+    else:
+        return redirect('error404')
     context ={
-        'products':products
+            'products':products
     }
     return render(request,'user/product_detail.html',context)
+
+def ERROR404(request):
+    return render(request,'common/404.html')

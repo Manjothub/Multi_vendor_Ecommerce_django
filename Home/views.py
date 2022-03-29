@@ -23,3 +23,6 @@ def PRDUCTDETAIL(request,slug):
 
 def ERROR404(request):
     return render(request,'common/404.html')
+
+def MYACCOUNT(request):
+    return render(request,'main/login.html')

@@ -1,5 +1,4 @@
 {% extends "common/base.html" %}
-{% load product_tags %}
 {% load static %}
 {% block body %}
 <div class="slider-area light-bg-s pt-60">
@@ -546,7 +545,7 @@
                                     <span>(01 review)</span>
                                 </div>
                                 <div class="price mb-10">
-                                    <span> Rs {% call_sellprice i.price i.discount %}</span> &nbsp;&nbsp;<del>{{p.price}}</del>
+                                    <span> Rs</span> &nbsp;&nbsp;<del>{{p.price}}</del>
                                 </div>
                                 <div class="features-des mb-20">
                                     <ul>

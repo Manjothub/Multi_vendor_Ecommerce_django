@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from . models import *
+from django.contrib import messages
 
 def INDEX(request):
     main_category = MainCategory.objects.all()
@@ -26,3 +27,18 @@ def ERROR404(request):
 
 def MYACCOUNT(request):
     return render(request,'main/login.html')
+
+def REGISTER(request):
+    if request.method =='POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('cpassword')
+        if password==confirm_password:
+            user = User(username=username,email= email)
+            user.set_password(password)
+            user.save()
+            messages.success(request,'Account Created Sucessfully')
+        else:
+            messages.error(request,'Password not Matched')
+    return redirect('myaccount')

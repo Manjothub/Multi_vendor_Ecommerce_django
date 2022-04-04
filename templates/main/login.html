@@ -56,9 +56,11 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
+                    {% include "common/error.html" %}
                     <div class="basic-login">
                         <h5>Register Yourself</h5>
-                        <form action="#">
+                        <form action="{% url 'register' %}" method="POST">
+                            {% csrf_token %}
                             <label for="username">Username</label>
                             <input id="username" type="text" name="username" placeholder="Enter Username">
                             <label for="email-id">Email Address</label>

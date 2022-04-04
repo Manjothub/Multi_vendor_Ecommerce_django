@@ -125,6 +125,12 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.INFO: '',
+    50: 'critical',
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

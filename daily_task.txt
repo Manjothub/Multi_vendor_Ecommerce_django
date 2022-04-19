@@ -19,6 +19,9 @@ pending product detail page
 Date :23/03/2022
 implemented the error404 page 
 setting of the product detail page
-
 pending -> add more product to product table
 set the product section in the main homepage
+
+Date 20/04/2022
+Implemented the Login page with the authentication 
+Pending -> Show user name to the main page(index page of the website and make an account page like the amazon where he can check his order s and the cart items)

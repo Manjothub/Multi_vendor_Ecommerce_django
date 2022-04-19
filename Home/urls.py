@@ -7,4 +7,5 @@ urlpatterns = [
     path('error/',ERROR404,name="error404"),
     path('account/my-account',MYACCOUNT,name="myaccount"),
     path('account/register',REGISTER,name="register"),
+    path('account/login',LOGIN,name="loginuser"),
 ]

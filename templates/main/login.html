@@ -32,16 +32,18 @@
 
     <!-- account-area-start -->
     <div class="account-area mt-70 mb-70">
+        {% include "common/error.html" %}
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="basic-login mb-50">
                         <h5>Login</h5>
-                        <form action="#">
+                        <form action="{% url 'loginuser' %}" method="POST">
+                            {% csrf_token %}
                             <label for="name">Username or email address</label>
-                            <input id="name" type="text" placeholder="Enter Username or email ">
+                            <input id="name" type="text" placeholder="Enter Username or email" name="username">
                             <label for="pass">Password </label>
-                            <input id="pass" type="password" placeholder="Enter password...">
+                            <input id="pass" type="password" placeholder="Enter password..." name="password">
                             <div class="login-action mb-10 fix">
                                 <span class="log-rem f-left">
                                    <input id="remember" type="checkbox">
@@ -56,7 +58,6 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    {% include "common/error.html" %}
                     <div class="basic-login">
                         <h5>Register Yourself</h5>
                         <form action="{% url 'register' %}" method="POST">

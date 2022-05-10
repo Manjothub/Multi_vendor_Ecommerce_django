@@ -34,13 +34,20 @@ def REGISTER(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('cpassword')
-        if password==confirm_password:
-            user = User(username=username,email= email)
-            user.set_password(password)
-            user.save()
-            messages.success(request,'Account Created Sucessfully')
+        if User.objects.filter(username=username).exists():
+            messages.error(request,'username is already exists')
+            return redirect ('myaccount')   
+        if User.objects.filter(email=email).exists():
+            messages.error(request,'Sorry email already exists')
+            return redirect ('myaccount') 
         else:
-            messages.error(request,'Password not Matched')
+            if password==confirm_password:
+             user = User(username=username,email= email)
+             user.set_password(password)
+             user.save()
+             messages.success(request,'Account Created Sucessfully')
+            else:
+                messages.error(request,'Password not Matched')
     return redirect('myaccount')
 
 def LOGIN(request):

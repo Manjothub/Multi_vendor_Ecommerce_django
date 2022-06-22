@@ -26,7 +26,7 @@ def ERROR404(request):
     return render(request,'common/404.html')
 
 def MYACCOUNT(request):
-    return render(request,'main/login.html')
+    return render(request,'registeration/login.html')
 
 def REGISTER(request):
     if request.method =='POST':
@@ -36,10 +36,10 @@ def REGISTER(request):
         confirm_password = request.POST.get('cpassword')
         if User.objects.filter(username=username).exists():
             messages.error(request,'username is already exists')
-            return redirect ('myaccount')   
+            return redirect ('login')   
         if User.objects.filter(email=email).exists():
             messages.error(request,'Sorry email already exists')
-            return redirect ('myaccount') 
+            return redirect ('login') 
         else:
             if password==confirm_password:
              user = User(username=username,email= email)
@@ -62,4 +62,4 @@ def LOGIN(request):
         else:
             messages.error(request,'Invalid Credentials!!')
             return redirect('myaccount')
-    return render(request,'main/login.html')
+    return render(request,'registeration/login.html')

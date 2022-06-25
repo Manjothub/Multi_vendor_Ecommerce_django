@@ -2,6 +2,8 @@ from django.shortcuts import redirect, render
 from . models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
+
 def INDEX(request):
     main_category = MainCategory.objects.all()
     product = Product.objects.filter(section__name = 'Top Deal of the Day')
@@ -63,3 +65,44 @@ def LOGIN(request):
             messages.error(request,'Invalid Credentials!!')
             return redirect('myaccount')
     return render(request,'registeration/login.html')
+
+@login_required(login_url='login')
+def PROFILE(request):
+    return render(request,'user/profile.html')
+
+
+@login_required(login_url='login')
+def PROFILEUPDATE(request):
+    if request.method == 'POST':
+        username= request.POST.get('user_name')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        password = request.POST.get('user_password')
+        user_id = request.user.id
+        
+        user = User.objects.get(id=user_id)
+        user.first_name=first_name
+        user.last_name = last_name
+        user.username = username
+        user.email = email
+        
+        if password != None and password != "":
+            user.set_password(password)
+        user.save()
+        messages.success(request,"Profile Updated Sucessfully")
+    return redirect('profile')
+
+def ABOUTUS(request):
+    return render(request,'user/about.html')
+
+def CONTACTUS(request):
+    return render(request,'user/contact.html')
+
+def PRODUCTLIST(request):
+    return render(request,'user/product.html')
+
+
+def LOGOUT(request):
+    logout(request)
+    return redirect ("/")

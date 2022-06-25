@@ -1,3 +1,5 @@
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 from django.shortcuts import redirect, render
 from . models import *
 from django.contrib import messages
@@ -100,7 +102,37 @@ def CONTACTUS(request):
     return render(request,'user/contact.html')
 
 def PRODUCTLIST(request):
-    return render(request,'user/product.html')
+    category = Category.objects.all()
+    product = Product.objects.all()
+    context ={
+        'category':category,
+        'product':product
+    }
+    return render(request,'user/product.html',context)
+
+def FILTER_DATA(request):
+     categories = request.GET.getlist('category[]')
+     brands = request.GET.getlist('brand[]')
+     allProducts = Product.objects.all().order_by('-id').distinct()
+     if len(categories) > 0:
+         allProducts = allProducts.filter(categories__id__in=categories).distinct()
+     if len(brands) > 0:
+        allProducts = allProducts.filter(Brand__id__in=brands).distinct()
+     t = render_to_string('Ajax/product-filtered-list.html', {'product': allProducts})
+     return JsonResponse({'data': t})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def LOGOUT(request):

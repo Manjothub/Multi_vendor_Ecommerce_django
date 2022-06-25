@@ -15,4 +15,5 @@ urlpatterns = [
     path("about-us",ABOUTUS,name="about-us"),
     path("contact-us",CONTACTUS,name="contact-us"),
     path("product",PRODUCTLIST,name="productlist"),
+    path('products/filter-data',FILTER_DATA,name="filter-data"),
 ]

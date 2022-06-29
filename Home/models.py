@@ -46,6 +46,21 @@ class Section(models.Model):
     def __str__(self):
         return self.name
 
+class Color(models.Model):
+    code = models.CharField(max_length = 100)
+    
+    def __str__(self):
+        return self.code
+
+class Brand(models.Model):
+    name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.name
+
+
+
+
 class Product(models.Model):
     total_quantity = models.IntegerField()
     availability = models.IntegerField()
@@ -55,6 +70,8 @@ class Product(models.Model):
     discount = models.IntegerField()
     Product_information = RichTextField(null=True)   
     categories = models.ForeignKey(Category,on_delete= models.CASCADE)
+    color = models.ForeignKey(Color,on_delete = models.CASCADE, null= True)
+    brand = models.ForeignKey(Brand,on_delete=models.CASCADE,null=True)
     tags = models.CharField(max_length=100)
     Description = RichTextField(null=True)
     slug = models.SlugField(default='', max_length=500, null=True, blank=True)

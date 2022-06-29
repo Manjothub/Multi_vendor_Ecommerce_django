@@ -3,6 +3,8 @@ from django.template.loader import render_to_string
 from django.shortcuts import redirect, render
 from . models import *
 from django.contrib import messages
+from cart.cart import Cart
+from django.db.models import Max, Min
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 
@@ -104,9 +106,27 @@ def CONTACTUS(request):
 def PRODUCTLIST(request):
     category = Category.objects.all()
     product = Product.objects.all()
+    color = Color.objects.all()
+    brands = Brand.objects.all()
+    COLORID = request.GET.get('colorID')
+    min_price = Product.objects.all().aggregate(Min('price'))
+    max_price = Product.objects.all().aggregate(Max('price'))
+    FilterPrice = request.GET.get('FilterPrice')
+    if FilterPrice:
+        Int_FilterPrice = int(FilterPrice)
+        product = Product.objects.filter(price__lte = Int_FilterPrice)
+    elif COLORID:
+        product = Product.objects.filter(color = COLORID)
+    else:
+        product = Product.objects.all()
     context ={
         'category':category,
-        'product':product
+        'product':product,
+        'min_price':min_price,
+        'max_price':max_price,
+        'FilterPrice':FilterPrice,
+        'color':color,
+        'brands':brands
     }
     return render(request,'user/product.html',context)
 
@@ -117,15 +137,56 @@ def FILTER_DATA(request):
      if len(categories) > 0:
          allProducts = allProducts.filter(categories__id__in=categories).distinct()
      if len(brands) > 0:
-        allProducts = allProducts.filter(Brand__id__in=brands).distinct()
+        allProducts = allProducts.filter(brand__id__in=brands).distinct()
      t = render_to_string('Ajax/product-filtered-list.html', {'product': allProducts})
      return JsonResponse({'data': t})
 
 
+def CART(request):
+    return render(request,'user/cart.html')
+
+@login_required(login_url="login")
+def CART_ADD(request, id):
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("cart_detail")
 
 
+@login_required(login_url="login")
+def ITEM_CLEAR(request, id):
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    cart.remove(product)
+    return redirect("cart_detail")
 
 
+@login_required(login_url="login")
+def ITEM_INCREMENT(request, id):
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="login")
+def ITEM_DECREMENT(request, id):
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    cart.decrement(product=product)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="login")
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")
+
+
+@login_required(login_url="login")
+def CART_DETAIL(request):
+    return render(request, 'user/cart.html')
 
 
 

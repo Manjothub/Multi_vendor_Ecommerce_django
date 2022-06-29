@@ -1,5 +1,35 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% block css %}
+<style>
+    input[type=range]{
+    -webkit-appearance: none;
+    width:100%;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+    width: 1000px;
+    height: 5px;
+    background: #FCBE00;
+    border: none;
+    border-radius: 3px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+    margin-top: -5px;
+    }
+    input[type=range]:focus {
+    outline: none;
+    }
+    input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #FCBE00;
+    }
+ </style>
+{% endblock css %}
 {% block body %}
 <main>
    <!-- breadcrumb__area-start -->
@@ -40,49 +70,30 @@
                        </div>
                    </div>
                    <div class="product-widget mb-30">
-                       <h5 class="pt-title">Filter By Price</h5>
-                       <div class="price__slider mt-30">
-                           <div id="slider-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span></div>
-                           <div>
-                               <form action="#" class="s-form mt-20">
-                                   <input type="text" id="amount" readonly="">
-                                   <button type="submit" class="tp-btn-square-lg">Filter</button>
-                               </form>
-                           </div>
+                    <h5 class="pt-title">Price</h5>
+                    <div class="price__slider mt-30">
+                       <input type="range" class="multi-range success" style="color:red;" value="{{FilterPrice}}" min="{{min_price.price__min}}" max="{{max_price.price__max}}" id="rangeInput" oninput="maxPrice.value=this.value" width="400px;"/>
+                       <div>
+                          <form action="" class="s-form mt-20" method="get">
+                             <b>₹</b><input type="number" id="maxPrice" readonly="" name="FilterPrice" onkeyup="rangeInput.value=this.value" value={{FilterPrice}}{{minMaxPrice.price__min}}>
+                             <button type="submit" id="priceFilterBtn" class="tp-btn-square-lg">Filter</button>
+                          </form>
                        </div>
-                   </div>
+                    </div>
+                 </div>
                    <div class="product-widget mb-30">
                        <h5 class="pt-title">Choose Color</h5>
                        <div class="product__color mt-20">
                            <ul>
+                            {% for colr in color %}
                               <li>
-                                 <a href="#" class="black"></a>
+                                 <a href="?colorID={{colr.id}}" class="black" style="background-color: {{colr.code}};"></a>
                               </li>
-                              <li>
-                                 <a href="#" class="blue"></a>
-                              </li>
-                              <li>
-                                 <a href="#" class="red"></a>
-                              </li>
-                              <li>
-                                 <a href="#" class="yellow"></a>
-                              </li>
-                              <li>
-                                 <a href="#" class="pink"></a>
-                              </li>
-                              <li>
-                                 <a href="#" class="brown"></a>
-                              </li>
-                              <li>
-                                 <a href="#" class="green"></a>
-                              </li>
-                              <li>
-                                 <a href="#" class="oragne"></a>
-                              </li>
+                              {% endfor %}
                            </ul>
                      </div>
                    </div>
-                   <div class="product-widget mb-30">
+                   <!-- <div class="product-widget mb-30">
                        <h5 class="pt-title">Choose Rating</h5>
                        <div class="widget-category-list mt-20">
                            <form action="#">
@@ -174,35 +185,17 @@
                                </div>
                            </form>
                        </div>
-                   </div>
+                   </div> -->
                    <div class="product-widget mb-30">
                        <h5 class="pt-title">Choose Brand</h5>
                        <div class="widget-category-list mt-20">
                            <form action="#">
+                            {% for brnd in brands  %}
                                <div class="single-widget-category">
-                                   <input type="checkbox" id="brand-item-1" name="brand-item">
-                                   <label for="brand-item-1">CarRentals <span>(12)</span></label>
+                                <input type="checkbox" id="brand-{{brnd.id}}" name="cat-item" data-filter="brand" value="{{brnd.id}}" class="filter-checkbox">
+                                   <label for="brand-{{brnd.id}}">{{brnd.name}} <span>({{brnd.product_set.all.count}})</span></label>
                                </div>
-                               <div class="single-widget-category">
-                                   <input type="checkbox" id="brand-item-2" name="brand-item">
-                                   <label for="brand-item-2">CarVoodoo <span>(60)</span></label>
-                               </div>
-                               <div class="single-widget-category">
-                                   <input type="checkbox" id="brand-item-3" name="brand-item">
-                                   <label for="brand-item-3">Creative <span>(41)</span></label>
-                               </div>
-                               <div class="single-widget-category">
-                                   <input type="checkbox" id="brand-item-4" name="brand-item">
-                                   <label for="brand-item-4">Impact <span>(28)</span></label>
-                               </div>
-                               <div class="single-widget-category">
-                                   <input type="checkbox" id="brand-item-5" name="brand-item">
-                                   <label for="brand-item-5">IQVia <span>(21)</span></label>
-                               </div>
-                               <div class="single-widget-category">
-                                   <input type="checkbox" id="brand-item-7" name="brand-item">
-                                   <label for="brand-item-7">LeadsGreen <span>(62)</span></label>
-                               </div>
+                               {% endfor %}
                            </form>
                        </div>
                    </div>

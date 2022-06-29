@@ -16,4 +16,10 @@ urlpatterns = [
     path("contact-us",CONTACTUS,name="contact-us"),
     path("product",PRODUCTLIST,name="productlist"),
     path('products/filter-data',FILTER_DATA,name="filter-data"),
+    path('cart/add/<int:id>/', CART_ADD, name='cart_add'),
+    path('cart/item_clear/<int:id>/', ITEM_CLEAR, name='item_clear'),
+    path('cart/item_increment/<int:id>/',ITEM_INCREMENT, name='item_increment'),
+    path('cart/item_decrement/<int:id>/',ITEM_DECREMENT, name='item_decrement'),
+    path('cart/cart_clear/', ITEM_CLEAR, name='cart_clear'),
+    path('cart/cart-detail/',CART_DETAIL,name='cart_detail'),
 ]

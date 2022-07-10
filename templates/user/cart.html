@@ -69,7 +69,7 @@
                                         </div>
                                       </td>
                                       <td class="product-subtotal"><span class="amount">Rs{{value.price|multiply:value.quantity }}</span></td>
-                                      <td class="product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
+                                      <td class="product-remove"><a href="{% url 'item_clear' key %}"><i class="fa fa-times"></i></a></td>
                                    </tr>
                                    {% endfor %}
                                 </tbody>
@@ -84,7 +84,7 @@
                                             coupon</button>
                                    </div>
                                    <div class="coupon2">
-                                      <button class="tp-btn-h1" name="update_cart" type="submit">Update cart</button>
+                                      <a class="tp-btn-h1" name="update_cart" href="{% url 'cart_clear' %}">Clear cart</a>
                                    </div>
                                 </div>
                           </div>
@@ -94,8 +94,15 @@
                                 <div class="cart-page-total">
                                    <h2>Cart totals</h2>
                                    <ul class="mb-20">
-                                      <li>Subtotal <span>$250.00</span></li>
-                                      <li>Total <span>$250.00</span></li>
+                                      <li>Packing Cost <span>Rs {{pack_cost}}</span></li>
+                                      <li>Tax <span>Rs {{tax}}</span></li>
+                                      {% if cart_total_amount > 500 %}
+                                      <li>Delivery Charge <span>Free</span></li>
+                                      <li>Total <span>Rs {{cart_total_amount|add:pack_cost|add:tax}}</span></li>
+                                      {% else %}
+                                      <li>Delivery Charge <span>Rs 120</span></li>
+                                      <li class="text-success">Total <span>Rs {{cart_total_amount|add:pack_cost|add:tax}}</span></li>
+                                      {% endif %}
                                    </ul>
                                    <a class="tp-btn-h1" href="checkout.html">Proceed to checkout</a>
                                 </div>

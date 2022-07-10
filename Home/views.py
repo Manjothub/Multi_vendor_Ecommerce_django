@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from . models import *
 from django.contrib import messages
 from cart.cart import Cart
-from django.db.models import Max, Min
+from django.db.models import Max, Min, Sum
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 
@@ -32,7 +32,7 @@ def ERROR404(request):
     return render(request,'common/404.html')
 
 def MYACCOUNT(request):
-    return render(request,'registeration/login.html')
+    return render(request,'registration/login.html')
 
 def REGISTER(request):
     if request.method =='POST':
@@ -186,7 +186,14 @@ def cart_clear(request):
 
 @login_required(login_url="login")
 def CART_DETAIL(request):
-    return render(request, 'user/cart.html')
+    cart = request.session.get('cart')
+    pack_cost = sum(i['packing_cost'] for i in cart.values() if i)
+    tax = sum(i['tax']for i in cart.values() if i)
+    context={
+    'pack_cost':pack_cost,
+    'tax':tax,
+        }
+    return render(request, 'user/cart.html',context)
 
 
 

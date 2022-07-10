@@ -119,9 +119,9 @@
                                 </a>
                             </div>
                             <div class="block-cart action">
-                                <a class="icon-link icon-link-2" href="cart.html">
+                                <a class="icon-link icon-link-2" href="{% url 'cart_detail' %}">
                                 <i class="flaticon-shopping-bag"></i>
-                                <span class="count count-2">1</span>
+                                <span class="count count-2">{{request.session.cart|length}}</span>
                                 <span class="text">
                                 <span class="sub">Your Cart:</span>
                                 $00.00 </span>
@@ -132,21 +132,22 @@
                                             <li>
                                               <div class="cart__title">
                                                 <h4>Your Cart</h4>
-                                                <span>(1 Item in Cart)</span>
+                                                <span>({{request.session.cart|length}} Item in Cart)</span>
                                               </div>
                                             </li>
+                                            {% for key,value in request.session.cart.items %}
                                             <li>
                                               <div class="cart__item d-flex justify-content-between align-items-center">
                                                 <div class="cart__inner d-flex">
                                                   <div class="cart__thumb">
                                                     <a href="product-details.html">
-                                                      <img src="{% static 'assets/img/cart/20.jpg' %}" alt="">
+                                                      <img src="{{value.feature_img}}" alt="">
                                                     </a>
                                                   </div>
                                                   <div class="cart__details">
-                                                    <h6><a href="product-details.html"> Samsung C49J89: £875, Debenhams Plus  </a></h6>
+                                                    <h6><a href="product-details.html"> {{value.product_name}}  </a></h6>
                                                     <div class="cart__price">
-                                                      <span>$255.00</span>
+                                                      <span>Rs {{value.price}}</span>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -155,14 +156,15 @@
                                                 </div>
                                               </div>
                                             </li>
+                                            {% endfor %}
                                             <li>
                                               <div class="cart__sub d-flex justify-content-between align-items-center">
                                                 <h6>Subtotal</h6>
-                                                <span class="cart__sub-total">$255.00</span>
+                                                <span class="cart__sub-total">Rs {{cart_total_amount}}</span>
                                               </div>
                                             </li>
                                             <li>
-                                                <a href="cart.html" class="wc-cart mb-10">View cart</a>
+                                                <a href="{% url 'cart_detail' %}" class="wc-cart mb-10">View cart</a>
                                                 <a href="checkout.html" class="wc-checkout">Checkout</a>
                                             </li>
                                         </ul>

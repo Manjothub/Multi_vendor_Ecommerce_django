@@ -73,6 +73,8 @@ class Product(models.Model):
     color = models.ForeignKey(Color,on_delete = models.CASCADE, null= True)
     brand = models.ForeignKey(Brand,on_delete=models.CASCADE,null=True)
     tags = models.CharField(max_length=100)
+    tax = models.IntegerField(null=True)
+    packing_cost = models.IntegerField(null=True)
     Description = RichTextField(null=True)
     slug = models.SlugField(default='', max_length=500, null=True, blank=True)
     section = models.ForeignKey(Section,on_delete=models.DO_NOTHING)

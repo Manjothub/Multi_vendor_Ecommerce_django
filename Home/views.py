@@ -189,9 +189,24 @@ def CART_DETAIL(request):
     cart = request.session.get('cart')
     pack_cost = sum(i['packing_cost'] for i in cart.values() if i)
     tax = sum(i['tax']for i in cart.values() if i)
+    valid_coupon = None
+    coupon = None
+    invalid_coupon = None
+    if request.method =='GET':
+        coupon_code= request.GET.get('coupon_code')
+        print(coupon_code)
+        if coupon_code:
+            try:
+                coupon = CouponCode.objects.get(code=coupon_code)
+                valid_coupon = "Are Applicable on Current Order"
+            except:
+                invalid_coupon = "Invalid Coupon Code"
     context={
     'pack_cost':pack_cost,
     'tax':tax,
+    'coupon': coupon,
+    'valid_coupon':valid_coupon,
+    'invalid_coupon':invalid_coupon
         }
     return render(request, 'user/cart.html',context)
 

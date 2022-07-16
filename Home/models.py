@@ -87,6 +87,7 @@ class Product(models.Model):
 
     class Meta:
         db_table = "Home_Product"
+        
 
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.product_name)
@@ -106,7 +107,12 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
 pre_save.connect(pre_save_post_receiver, Product)
 
     
-
+class CouponCode(models.Model):
+    code = models.CharField(max_length=100)
+    discount = models.IntegerField()
+    
+    def __str__(self):
+        return self.code
 class ProductImage(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
     image_url = models.CharField(max_length=200)
